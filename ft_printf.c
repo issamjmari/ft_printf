@@ -1,26 +1,19 @@
  #include "ft_printf.h"
  #include <stdarg.h>
-static int	handle_format(const char *t, va_list args)
+
+static void	handle_format(const char *t, va_list args, int *count)
 {
-	char	c;
-	char	*s;
-	int		d;
 	if (t[1] == 'c')
-	{
-		c = va_arg (args, int);
-		write (1, &c, 1);
-	}
+		ft_putchar (va_arg (args, int), count);
 	else if (t[1] == 's')
-	{
-		s = va_arg(args, char *);
-		ft_putstr (s);
-	}
-	else if (t[1] == 'd')
-	{
-		d = va_arg(args, int);
-		return (ft_putnbr(d));
-	}
-	return (0);
+		ft_putstr (va_arg(args, char *), count);
+	else if (t[1] == 'u')
+		ft_putchar((unsigned int) va_arg(args, int), count);
+	else if (t[1] == 'd' || t[1] == 'i')
+		ft_putnbr(va_arg(args, int), count);
+	else if (t[1] == '%')
+		ft_putchar(t[1], count);
+	
 }
 int ft_printf(const char *s, ...)
 {
@@ -34,13 +27,14 @@ int ft_printf(const char *s, ...)
 	while (s[i])
 	{
 		if (s[i] != '%')
-			write (1, &s[i], 1);
+			ft_putchar (s[i], &count);
 		else
 		{
-			count += handle_format(&s[i], args);
+			handle_format(&s[i], args, &count);
 			i++;
 		}
 		i++;
 	}
-	return (i + count + 1);
+	va_end (args);
+	return (count);
 }
