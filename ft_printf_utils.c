@@ -16,7 +16,7 @@ void    ft_putchar(char c, int *count)
         (*count)++;
 }
 
-int    handle_the_nb(int temp, int size, int last, int *count)
+int    handle_the_nb(long long temp, int size, long last, int *count)
 {
         int i;
 
@@ -43,11 +43,11 @@ int    handle_the_nb(int temp, int size, int last, int *count)
         return (i);
 }
 
-int    ft_putnbr(int nb, int *count)
+int    ft_putnbr(long long nb, int *count)
 {
-        int     size;
-        int     temp;
-        int     last;
+        int          size;
+        long long    temp;
+        long long    last;
 
         size = 1;
         if (nb == -2147483648)

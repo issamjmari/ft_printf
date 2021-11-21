@@ -1,6 +1,11 @@
  #include "ft_printf.h"
  #include <stdarg.h>
+static void	ft_print_hexa(char hexa, unsigned int i, int *count)
+{
+	char	*arr;
 
+	
+}
 static void	handle_format(const char *t, va_list args, int *count)
 {
 	if (t[1] == 'c')
@@ -8,9 +13,11 @@ static void	handle_format(const char *t, va_list args, int *count)
 	else if (t[1] == 's')
 		ft_putstr (va_arg(args, char *), count);
 	else if (t[1] == 'u')
-		ft_putchar((unsigned int) va_arg(args, int), count);
+		ft_putnbr((unsigned int) va_arg(args, int), count);
 	else if (t[1] == 'd' || t[1] == 'i')
 		ft_putnbr(va_arg(args, int), count);
+	else if (t[1] == 'x' || t[1] == 'X')
+		ft_print_hexa(t[1], (unsigned int) va_arg(args, int), count);
 	else if (t[1] == '%')
 		ft_putchar(t[1], count);
 	
