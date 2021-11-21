@@ -1,6 +1,6 @@
  #include "ft_printf.h"
  #include <stdarg.h>
-static void	handle_format(const char *t, va_list args)
+static int	handle_format(const char *t, va_list args)
 {
 	char	c;
 	char	*s;
@@ -18,15 +18,18 @@ static void	handle_format(const char *t, va_list args)
 	else if (t[1] == 'd')
 	{
 		d = va_arg(args, int);
-		ft_putnbr(d);
+		return (ft_putnbr(d));
 	}
+	return (0);
 }
 int ft_printf(const char *s, ...)
 {
-	va_list    args;
-	int        i;
+	va_list    	args;
+	int        	i;
+	int			count;
 
 	i = 0;
+	count = 0;
 	va_start(args, s);
 	while (s[i])
 	{
@@ -34,10 +37,10 @@ int ft_printf(const char *s, ...)
 			write (1, &s[i], 1);
 		else
 		{
-			handle_format(&s[i], args);
+			count += handle_format(&s[i], args);
 			i++;
 		}
 		i++;
 	}
-	return (i);
+	return (i + count + 1);
 }

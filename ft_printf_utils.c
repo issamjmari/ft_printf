@@ -15,8 +15,11 @@ void    ft_putchar(char c)
         write(1, &c, 1);
 }
 
-void    handle_the_nb(int temp, int size, int last)
+int    handle_the_nb(int temp, int size, int last)
 {
+        int i;
+
+        i = 0;
         if (temp < 0)
         {
                 last *= -1;
@@ -27,6 +30,7 @@ void    handle_the_nb(int temp, int size, int last)
         {
                 size *= 10;
                 temp /= 10;
+                i += 2;
         }
         ft_putchar((last / size) + '0');
         size /= 10;
@@ -35,9 +39,10 @@ void    handle_the_nb(int temp, int size, int last)
                 ft_putchar(((last / size) % 10) + '0');
                 size /= 10;
         }
+        return (i);
 }
 
-void    ft_putnbr(int   nb)
+int    ft_putnbr(int   nb)
 {
         int     size;
         int     temp;
@@ -52,7 +57,7 @@ void    ft_putnbr(int   nb)
         }
         temp = nb;
         last = nb;
-        handle_the_nb(temp, size, last);
+        return (handle_the_nb(temp, size, last));
 }
 void    ft_putstr(char *str)
 {

@@ -5,6 +5,6 @@
 
 int     ft_printf(const char *, ...);
 size_t  ft_strlen(const char *);
-void    ft_putnbr(int nb);
+int    ft_putnbr(int nb);
 void    ft_putstr(char *s);
 #endif
