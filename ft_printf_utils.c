@@ -6,7 +6,7 @@
 /*   By: ijmari <ijmari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 17:27:45 by ijmari            #+#    #+#             */
-/*   Updated: 2021/11/22 17:31:08 by ijmari           ###   ########.fr       */
+/*   Updated: 2021/11/22 17:48:08 by ijmari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	handle_the_nb(long long temp, int size, long last, int *count)
 
 int	ft_putnbr(long long nb, int *count)
 {
-	int		size;
+	long long	size;
 	long long	temp;
 	long long	last;
 
