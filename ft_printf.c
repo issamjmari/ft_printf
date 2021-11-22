@@ -1,10 +1,35 @@
  #include "ft_printf.h"
  #include <stdarg.h>
+ #include <stdio.h>
 static void	ft_print_hexa(char hexa, unsigned int i, int *count)
 {
-	char	*arr;
+	int		j;
+	char	*hex;
+	char	temp[16];
 
-	
+	j = 0;
+	hex = "0123456789abcdef";
+	if (i == 0)
+	{
+		temp[0] = hex[0];
+		ft_putchar(temp[0], count);
+	}
+	else
+	{
+		while (i)
+			{
+				temp[j++] = hex[i % 16];
+				i /= 16;
+			}
+		--j;
+		while (j >= 0 && hexa == 'x')
+			ft_putchar(temp[j--], count);
+		while (j >= 0 && hexa == 'X')
+		if (temp[j] >= 'A' && temp[j] <= 'z')
+			ft_putchar((temp[j--] - 32), count);
+		else
+			ft_putchar(temp[j--], count);
+	}
 }
 static void	handle_format(const char *t, va_list args, int *count)
 {
