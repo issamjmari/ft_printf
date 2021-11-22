@@ -1,9 +1,9 @@
  #include "ft_printf.h"
  #include <stdarg.h>
 
-static void	ft_print_hexa(char hexa, unsigned int i, int *count, char *temp)
+void	ft_print_hexa(char hexa, unsigned int i, int *count, char *temp)
 {
-	int	j;
+	int					j;
 
 	j = ft_strlen (temp);
 	j--;
@@ -15,13 +15,13 @@ static void	ft_print_hexa(char hexa, unsigned int i, int *count, char *temp)
 			ft_putchar((temp[j--] - 32), count);
 		else
 			ft_putchar(temp[j--], count);
-	}	
+	}
 }
-static void	ft_handle_hexa(char hexa, unsigned int i, int *count)
+void	ft_handle_hexa(char hexa, unsigned int i, int *count)
 {
-	int		j;
-	char	*hex;
-	char	temp[16];
+	int					j;
+	char				*hex;
+	char				temp[16];
 
 	j = 0;
 	hex = "0123456789abcdef";
@@ -52,6 +52,8 @@ static void	handle_format(const char *t, va_list args, int *count)
 		ft_putnbr(va_arg(args, int), count);
 	else if (t[1] == 'x' || t[1] == 'X')
 		ft_handle_hexa(t[1], (unsigned int) va_arg(args, int), count);
+	else if (t[1] == 'p')
+		ft_handle_voidp((unsigned long long) va_arg(args, int), count);
 	else if (t[1] == '%')
 		ft_putchar(t[1], count);
 }
