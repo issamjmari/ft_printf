@@ -1,9 +1,21 @@
- #include "ft_printf.h"
- #include <stdarg.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ijmari <ijmari@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/22 17:25:37 by ijmari            #+#    #+#             */
+/*   Updated: 2021/11/22 17:27:27 by ijmari           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	ft_print_hexa(char hexa, unsigned int i, int *count, char *temp)
+#include "ft_printf.h"
+#include <stdarg.h>
+
+void	ft_print_hexa(char hexa, int *count, char *temp)
 {
-	int					j;
+	int	j;
 
 	j = ft_strlen (temp);
 	j--;
@@ -17,6 +29,7 @@ void	ft_print_hexa(char hexa, unsigned int i, int *count, char *temp)
 			ft_putchar(temp[j--], count);
 	}
 }
+
 void	ft_handle_hexa(char hexa, unsigned int i, int *count)
 {
 	int					j;
@@ -37,9 +50,11 @@ void	ft_handle_hexa(char hexa, unsigned int i, int *count)
 			temp[j++] = hex[i % 16];
 			i /= 16;
 		}
-		ft_print_hexa(hexa, i, count, temp);
+		temp[j] = '\0';
+		ft_print_hexa(hexa, count, temp);
 	}
 }
+
 static void	handle_format(const char *t, va_list args, int *count)
 {
 	if (t[1] == 'c')
@@ -53,14 +68,15 @@ static void	handle_format(const char *t, va_list args, int *count)
 	else if (t[1] == 'x' || t[1] == 'X')
 		ft_handle_hexa(t[1], (unsigned int) va_arg(args, int), count);
 	else if (t[1] == 'p')
-		ft_handle_voidp((unsigned long long) va_arg(args, int), count);
+		ft_handle_voidp(va_arg(args, unsigned long int), count);
 	else if (t[1] == '%')
 		ft_putchar(t[1], count);
 }
-int ft_printf(const char *s, ...)
+
+int	ft_printf(const char *s, ...)
 {
-	va_list    	args;
-	int        	i;
+	va_list		args;
+	int			i;
 	int			count;
 
 	i = 0;
