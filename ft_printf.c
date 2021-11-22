@@ -1,7 +1,23 @@
  #include "ft_printf.h"
  #include <stdarg.h>
- #include <stdio.h>
-static void	ft_print_hexa(char hexa, unsigned int i, int *count)
+
+static void	ft_print_hexa(char hexa, unsigned int i, int *count, char *temp)
+{
+	int	j;
+
+	j = ft_strlen (temp);
+	j--;
+	while (j >= 0 && hexa == 'x')
+		ft_putchar(temp[j--], count);
+	while (j >= 0 && hexa == 'X')
+	{
+		if (temp[j] >= 'A' && temp[j] <= 'z')
+			ft_putchar((temp[j--] - 32), count);
+		else
+			ft_putchar(temp[j--], count);
+	}	
+}
+static void	ft_handle_hexa(char hexa, unsigned int i, int *count)
 {
 	int		j;
 	char	*hex;
@@ -17,18 +33,11 @@ static void	ft_print_hexa(char hexa, unsigned int i, int *count)
 	else
 	{
 		while (i)
-			{
-				temp[j++] = hex[i % 16];
-				i /= 16;
-			}
-		--j;
-		while (j >= 0 && hexa == 'x')
-			ft_putchar(temp[j--], count);
-		while (j >= 0 && hexa == 'X')
-		if (temp[j] >= 'A' && temp[j] <= 'z')
-			ft_putchar((temp[j--] - 32), count);
-		else
-			ft_putchar(temp[j--], count);
+		{
+			temp[j++] = hex[i % 16];
+			i /= 16;
+		}
+		ft_print_hexa(hexa, i, count, temp);
 	}
 }
 static void	handle_format(const char *t, va_list args, int *count)
@@ -42,10 +51,9 @@ static void	handle_format(const char *t, va_list args, int *count)
 	else if (t[1] == 'd' || t[1] == 'i')
 		ft_putnbr(va_arg(args, int), count);
 	else if (t[1] == 'x' || t[1] == 'X')
-		ft_print_hexa(t[1], (unsigned int) va_arg(args, int), count);
+		ft_handle_hexa(t[1], (unsigned int) va_arg(args, int), count);
 	else if (t[1] == '%')
 		ft_putchar(t[1], count);
-	
 }
 int ft_printf(const char *s, ...)
 {
