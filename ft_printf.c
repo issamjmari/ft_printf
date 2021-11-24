@@ -6,7 +6,7 @@
 /*   By: ijmari <ijmari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 17:25:37 by ijmari            #+#    #+#             */
-/*   Updated: 2021/11/22 17:27:27 by ijmari           ###   ########.fr       */
+/*   Updated: 2021/11/24 11:45:03 by ijmari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_print_hexa(char hexa, int *count, char *temp)
 		ft_putchar(temp[j--], count);
 	while (j >= 0 && hexa == 'X')
 	{
-		if (temp[j] >= 'A' && temp[j] <= 'z')
+		if (temp[j] >= 'a' && temp[j] <= 'z')
 			ft_putchar((temp[j--] - 32), count);
 		else
 			ft_putchar(temp[j--], count);
@@ -62,11 +62,11 @@ static void	handle_format(const char *t, va_list args, int *count)
 	else if (t[1] == 's')
 		ft_putstr (va_arg(args, char *), count);
 	else if (t[1] == 'u')
-		ft_putnbr((unsigned int) va_arg(args, int), count);
+		ft_putnbr(va_arg(args, unsigned int), count);
 	else if (t[1] == 'd' || t[1] == 'i')
 		ft_putnbr(va_arg(args, int), count);
 	else if (t[1] == 'x' || t[1] == 'X')
-		ft_handle_hexa(t[1], (unsigned int) va_arg(args, int), count);
+		ft_handle_hexa(t[1], va_arg(args, unsigned int), count);
 	else if (t[1] == 'p')
 		ft_handle_voidp(va_arg(args, unsigned long int), count);
 	else if (t[1] == '%')
